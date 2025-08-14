@@ -27,7 +27,7 @@ env:
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
-  REPO_BRANCH: v23.05.5
+  REPO_BRANCH: v24.10.2
 
 jobs:
   build:
