@@ -88,10 +88,9 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
-    - name: Disable Rust CI LLVM download
+    - name: List rust
       run: |
-        sudo -E sed -i 's/--set=llvm.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/g' feeds/packages/lang/rust/Makefile
-        ls feeds/packages/lang/rust/
+        ls -r feeds/packages/lang/rust/
 
     - name: Download package
       id: package
