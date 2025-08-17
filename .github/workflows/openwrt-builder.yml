@@ -65,6 +65,12 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
+    - name: Fix Rust CI build issue
+      run: |
+        sed -i 's/llvm.download-ci-llvm = true/llvm.download-ci-llvm = "if-unchanged"/g' feeds/packages/lang/rust/patches/010-rustc-llvm.patch
+        sed -i 's/llvm.download-ci-llvm = true/llvm.download-ci-llvm = "if-unchanged"/g' feeds/packages/lang/rust/patches/*.patch
+
+
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
