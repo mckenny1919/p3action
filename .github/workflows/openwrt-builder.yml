@@ -73,14 +73,6 @@ jobs:
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
-
-    - name: Fix Rust CI build issue
-      run: |
-        if [ -f "/workdir/openwrt/feeds/packages/lang/rust/Makefile" ]; then
-          sed -i 's/llvm.download-ci-llvm = true/llvm.download-ci-llvm = if-unchanged/g' /workdir/openwrt/feeds/packages/lang/rust/Makefile
-        else
-          echo "Rust patches not found, skipping modification"
-        fi
         
 
     - name: Load custom configuration
@@ -100,6 +92,15 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+
+    - name: Fix Rust CI build issue
+      run: |
+        if [ -f "/workdir/openwrt/feeds/packages/lang/rust/Makefile" ]; then
+          sed -i 's/llvm.download-ci-llvm = true/llvm.download-ci-llvm = if-unchanged/g' /workdir/openwrt/feeds/packages/lang/rust/Makefile
+        else
+          echo "Rust patches not found, skipping modification"
+        fi
+
 
     - name: Compile the firmware
       id: compile
