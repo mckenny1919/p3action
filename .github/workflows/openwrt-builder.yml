@@ -91,8 +91,7 @@ jobs:
 
     - name: Disable Rust CI LLVM download
       run: |
-        echo "CONFIG_RUST_LLVM_DOWNLOAD_IF_UNCHANGED=y" >> .config
-        echo "CONFIG_RUST_LLVM_DOWNLOAD=n" >> .config
+        sed -i 's/--set=llvm.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/g' feeds/packages/lang/rust/Makefile
 
     - name: Download package
       id: package
