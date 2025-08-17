@@ -74,15 +74,21 @@ jobs:
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
+    - name: List rust
+      run: |
+        cd openwrt/feeds/packages/lang/ && ls -ltr 
+        
+
     - name: Fix Rust CI build issue
       run: |
-        cd openwrt && ls -ltr
-        if [ -f "openwrt/feeds/packages/lang/rust/Makefile" ]; then
+        cd openwrt/feeds/packages/lang/ && ls -ltr
+        if [ -f "rust/Makefile" ]; then
           sed -i 's/llvm.download-ci-llvm = true/llvm.download-ci-llvm =false/g' feeds/packages/lang/rust/Makefile
         else
           echo "Rust patches not found, skipping modification"
         fi
-        if [ -f "feeds/packages/lang/rust/Makefile" ]; then
+        
+        if [ -f "/workdir/openwrt/feeds/packages/lang/rust/Makefile" ]; then
           sed -i 's/llvm.download-ci-llvm = true/llvm.download-ci-llvm =false/g' feeds/packages/lang/rust/Makefile
         else
           echo "Rust patches not found, skipping modification"
@@ -96,10 +102,6 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
-    - name: List rust
-      run: |
-        cd openwrt && ls -r openwrt/feeds/packages/lang/rust/
-        cd openwrt && ls -r
 
     - name: Download package
       id: package
