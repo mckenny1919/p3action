@@ -65,17 +65,21 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
-    - name: Fix Rust CI build issue
-      run: |
-        sed -i 's/llvm.download-ci-llvm = true/llvm.download-ci-llvm = "if-unchanged"/g' feeds/packages/lang/rust/patches/010-rustc-llvm.patch
-        sed -i 's/llvm.download-ci-llvm = true/llvm.download-ci-llvm = "if-unchanged"/g' feeds/packages/lang/rust/patches/*.patch
-
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
+
+    - name: Fix Rust CI build issue
+      run: |
+        if [ -f "feeds/packages/lang/rust/patches/010-rustc-llvm.patch" ]; then
+          sed -i 's/llvm.download-ci-llvm = true/llvm.download-ci-llvm = "if-unchanged"/g' feeds/packages/lang/rust/patches/010-rustc-llvm.patch
+          sed -i 's/llvm.download-ci-llvm = true/llvm.download-ci-llvm = "if-unchanged"/g' feeds/packages/lang/rust/patches/*.patch
+        else
+          echo "Rust patches not found, skipping modification"
+        fi
 
     - name: Load custom configuration
       run: |
