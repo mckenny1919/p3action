@@ -89,6 +89,11 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
+    - name: Disable Rust CI LLVM download
+      run: |
+        echo "CONFIG_RUST_LLVM_DOWNLOAD_IF_UNCHANGED=y" >> .config
+        echo "CONFIG_RUST_LLVM_DOWNLOAD=n" >> .config
+
     - name: Download package
       id: package
       run: |
