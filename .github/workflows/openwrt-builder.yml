@@ -81,7 +81,6 @@ jobs:
 
     - name: Fix Rust CI build issue
       run: |
-        cd openwrt/feeds/packages/lang/ && ls -ltr
         if [ -f "rust/Makefile" ]; then
           sed -i 's/llvm.download-ci-llvm = true/llvm.download-ci-llvm =false/g' feeds/packages/lang/rust/Makefile
         else
@@ -93,6 +92,8 @@ jobs:
         else
           echo "Rust patches not found, skipping modification"
         fi
+        
+        cd openwrt/feeds/packages/lang/ && ls -ltr
 
     - name: Load custom configuration
       run: |
