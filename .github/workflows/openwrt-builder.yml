@@ -83,6 +83,12 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
+    - name: Clean Rust build cache
+      run: |
+        cd openwrt 
+        rm -rf build_dir/target-*/host/rustc-1.85.0-src 
+        rm -rf staging_dir/host/lib/rustlib
+        
 
     - name: Download package
       id: package
@@ -91,12 +97,13 @@ jobs:
         make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
-        find dl -size -1024c -exec rm -f {} \;
+        #find dl -size -1024c -exec rm -f {} \;
 
     - name: Fix Rust CI build issue
       run: |
         if [ -f "/workdir/openwrt/feeds/packages/lang/rust/Makefile" ]; then
           sed -i 's/llvm.download-ci-llvm = true/llvm.download-ci-llvm = if-unchanged/g' /workdir/openwrt/feeds/packages/lang/rust/Makefile
+          cat /workdir/openwrt/feeds/packages/lang/rust/Makefile
         else
           echo "Rust patches not found, skipping modification"
         fi
