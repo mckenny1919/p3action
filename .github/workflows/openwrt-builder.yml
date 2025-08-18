@@ -101,13 +101,9 @@ jobs:
 
     - name: Fix Rust CI build issue
       run: |
-        if [ -f "/workdir/openwrt/feeds/packages/lang/rust/Makefile" ]; then
-          sed -i 's/llvm.download-ci-llvm = true/llvm.download-ci-llvm = if-unchanged/g' /workdir/openwrt/feeds/packages/lang/rust/Makefile
-          cat /workdir/openwrt/feeds/packages/lang/rust/Makefile
-        else
-          echo "Rust patches not found, skipping modification"
-        fi
-
+        sed -i 's/--set=llvm.download-ci-llvm=true/--set=llvm.download-ci-llvm=if-unchanged/g' /workdir/openwrt/feeds/packages/lang/rust/Makefile
+        cat /workdir/openwrt/feeds/packages/lang/rust/Makefile
+        
 
     - name: Compile the firmware
       id: compile
