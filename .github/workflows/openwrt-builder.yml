@@ -59,6 +59,8 @@ jobs:
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         ls -r
         pwd
+        git branch -a
+        git checkout openwrt-24.10
 
     - name: Load custom feeds
       run: |
