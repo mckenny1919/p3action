@@ -27,7 +27,7 @@ env:
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
-  REPO_BRANCH: openwrt-24.10
+  REPO_BRANCH: openwrt-25.12
 
 jobs:
   build:
