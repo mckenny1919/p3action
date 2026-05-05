@@ -13,11 +13,12 @@
 name: Update Checker
 
 env:
-  REPO_URL: https://github.com/openwrt/openwrt.git
-  #REPO_BRANCH: openwrt-24.10
+  #REPO_URL: https://github.com/openwrt/openwrt.git
+  REPO_URL: https://github.com/openwrt/openwrt.git openwrt-24.10
+  REPO_BRANCH: openwrt-24.10
   #REPO_BRANCH: openwrt-25.12
   #REPO_BRANCH: v25.12.2
-  REPO_BRANCH: v23.05.5
+  #REPO_BRANCH: v23.05.5
 #  REPO_BRANCH: master
 
 on:
@@ -34,7 +35,7 @@ jobs:
     - name: Get Commit Hash
       id: getHash
       run: |
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH .
+        git clone -b $REPO_BRANCH $REPO_URL
         echo "commitHash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
         #git clone --depth 1 $REPO_URL -b v25.12.0 --single-branch 
         #echo "commitHash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT        
