@@ -29,7 +29,7 @@ env:
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
   #REPO_BRANCH: openwrt-24.10
-  REPO_BRANCH: v24.10.6
+  REPO_BRANCH: v25.12.4
   #REPO_BRANCH: v23.05.5
   #REPO_BRANCH: openwrt-25.12
   #REPO_BRANCH: v25.12.2
@@ -186,7 +186,7 @@ jobs:
       uses: dev-drprasad/delete-older-releases@master
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
-        keep_latest: 10
+        keep_latest: 12
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
